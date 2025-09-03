@@ -1,0 +1,54 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Spring Boot App",
+			"type": "shell",
+			"command": "mvn",
+			"args": [
+				"spring-boot:run"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run Spring Boot with Java Extension",
+			"type": "shell",
+			"command": "java",
+			"args": [
+				"-cp",
+				"target/classes:target/dependency/*",
+				"com.example.springbootdemo.SpringBootDemoApplication"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run Spring Boot Application",
+			"type": "shell",
+			"command": "java",
+			"args": [
+				"-jar",
+				"target/spring-boot-demo-0.0.1-SNAPSHOT.jar"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Spring Boot Run",
+			"type": "shell",
+			"command": "java",
+			"args": [
+				"-cp",
+				"src/main/java;target/classes",
+				"com.example.springbootdemo.CollegeErpApplication"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

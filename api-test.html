@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎓 College ERP - API Testing Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            line-height: 1.6;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .api-section {
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+        }
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        .button:hover {
+            background: #218838;
+        }
+        .response-area {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            min-height: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .success { border-left-color: #28a745; }
+        .warning { border-left-color: #ffc107; }
+        .info { border-left-color: #17a2b8; }
+        .links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 College ERP System - API Testing Dashboard</h1>
+            <p>Complete guide to register, login, and access your enterprise ERP system</p>
+        </div>
+
+        <!-- Application Status -->
+        <div class="api-section info">
+            <h3>📊 Application Status</h3>
+            <button class="button" onclick="checkStatus()">Check Server Status</button>
+            <div id="statusResponse" class="response-area"></div>
+        </div>
+
+        <!-- User Registration -->
+        <div class="api-section success">
+            <h3>👤 User Registration</h3>
+            <p><strong>Your Email:</strong> mirzaanas937@gmail.com</p>
+            <p><strong>Suggested Username:</strong> mirzaanas937</p>
+            <p><strong>Suggested Password:</strong> password123</p>
+            
+            <div class="code-block">POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "mirzaanas937",
+  "email": "mirzaanas937@gmail.com", 
+  "password": "password123",
+  "firstName": "Anas",
+  "lastName": "Mirza",
+  "phone": "+91-9876543210",
+  "roles": ["ADMIN"]
+}</div>
+            
+            <button class="button" onclick="registerUser()">🚀 Register User</button>
+            <div id="registerResponse" class="response-area"></div>
+        </div>
+
+        <!-- User Login -->
+        <div class="api-section warning">
+            <h3>🔐 User Login</h3>
+            <p>After registration, use these credentials to login:</p>
+            
+            <div class="code-block">POST http://localhost:8080/api/auth/signin
+Content-Type: application/json
+
+{
+  "username": "mirzaanas937",
+  "password": "password123"
+}</div>
+            
+            <button class="button" onclick="loginUser()">🔑 Login User</button>
+            <div id="loginResponse" class="response-area"></div>
+        </div>
+
+        <!-- API Access -->
+        <div class="api-section info">
+            <h3>🔧 API Access with JWT Token</h3>
+            <p>After login, use the JWT token for authenticated API calls:</p>
+            
+            <div class="code-block">GET http://localhost:8080/api/departments
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+Content-Type: application/json</div>
+            
+            <button class="button" onclick="testApiAccess()">🌐 Test Department API</button>
+            <div id="apiResponse" class="response-area"></div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="api-section warning">
+            <h3>🛠️ Troubleshooting</h3>
+            <h4>Common Issues & Solutions:</h4>
+            <ul>
+                <li><strong>Connection Refused:</strong> Make sure the Spring Boot app is running on port 8080</li>
+                <li><strong>404 Not Found:</strong> Check the URL endpoints are correct</li>
+                <li><strong>"User not found":</strong> You need to register first before logging in</li>
+                <li><strong>CORS Errors:</strong> The app should allow cross-origin requests</li>
+            </ul>
+            
+            <h4>Manual Commands (Windows PowerShell):</h4>
+            <div class="code-block"># Register User
+$body = @{
+    username = "mirzaanas937"
+    email = "mirzaanas937@gmail.com"
+    password = "password123"
+    firstName = "Anas"
+    lastName = "Mirza"
+    phone = "+91-9876543210"
+    roles = @("ADMIN")
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:8080/api/auth/signup" -Method POST -Body $body -ContentType "application/json"
+
+# Login User
+$loginBody = @{
+    username = "mirzaanas937"
+    password = "password123"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:8080/api/auth/signin" -Method POST -Body $loginBody -ContentType "application/json"</div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="links">
+            <a href="http://localhost:8080" target="_blank">🏠 Application Home</a>
+            <a href="http://localhost:8080/swagger-ui.html" target="_blank">📚 Swagger API Docs</a>
+            <a href="http://localhost:8080/h2-console" target="_blank">🗄️ H2 Database Console</a>
+        </div>
+    </div>
+
+    <script>
+        let jwtToken = localStorage.getItem('jwtToken');
+
+        function showResponse(elementId, data, isSuccess = true) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `
+                <pre style="margin: 0; white-space: pre-wrap; color: ${isSuccess ? '#90EE90' : '#FFB6C1'}">
+${typeof data === 'object' ? JSON.stringify(data, null, 2) : data}
+                </pre>
+            `;
+        }
+
+        async function checkStatus() {
+            try {
+                const response = await fetch('http://localhost:8080/actuator/health');
+                const data = await response.json();
+                showResponse('statusResponse', data, true);
+            } catch (error) {
+                showResponse('statusResponse', `❌ Server not accessible: ${error.message}`, false);
+            }
+        }
+
+        async function registerUser() {
+            const userData = {
+                username: "mirzaanas937",
+                email: "mirzaanas937@gmail.com",
+                password: "password123",
+                firstName: "Anas",
+                lastName: "Mirza",
+                phone: "+91-9876543210",
+                roles: ["ADMIN"]
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/api/auth/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userData)
+                });
+                
+                const data = await response.json();
+                showResponse('registerResponse', data, response.ok);
+            } catch (error) {
+                showResponse('registerResponse', `❌ Registration failed: ${error.message}`, false);
+            }
+        }
+
+        async function loginUser() {
+            const loginData = {
+                username: "mirzaanas937",
+                password: "password123"
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/api/auth/signin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(loginData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.token) {
+                    jwtToken = data.token;
+                    localStorage.setItem('jwtToken', jwtToken);
+                    showResponse('loginResponse', {
+                        ...data,
+                        note: "✅ JWT Token saved! You can now access protected APIs."
+                    }, true);
+                } else {
+                    showResponse('loginResponse', data, false);
+                }
+            } catch (error) {
+                showResponse('loginResponse', `❌ Login failed: ${error.message}`, false);
+            }
+        }
+
+        async function testApiAccess() {
+            if (!jwtToken) {
+                showResponse('apiResponse', '❌ Please login first to get JWT token', false);
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:8080/api/departments', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                showResponse('apiResponse', {
+                    status: response.status,
+                    departments: data,
+                    note: "✅ API access successful!"
+                }, response.ok);
+            } catch (error) {
+                showResponse('apiResponse', `❌ API access failed: ${error.message}`, false);
+            }
+        }
+
+        // Check status on page load
+        window.onload = function() {
+            checkStatus();
+            if (jwtToken) {
+                document.getElementById('loginResponse').innerHTML = '<pre style="color: #90EE90;">✅ JWT Token found in localStorage</pre>';
+            }
+        };
+    </script>
+</body>
+</html>

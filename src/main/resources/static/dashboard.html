@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College ERP - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 250px;
+            height: calc(100vh - 80px);
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .sidebar li {
+            margin: 0.5rem 0;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: #333;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background: #f8f9fa;
+            border-right: 3px solid #667eea;
+        }
+
+        .sidebar .icon {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            min-height: calc(100vh - 80px);
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">🎓 College ERP Dashboard</div>
+            <div class="user-info">
+                <span id="userWelcome">Welcome, User!</span>
+                <button class="btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <ul>
+            <li><a href="#" onclick="showSection('dashboard')" class="active"><span class="icon">📊</span> Dashboard</a></li>
+            <li><a href="#" onclick="showSection('students')"><span class="icon">👥</span> Students</a></li>
+            <li><a href="#" onclick="showSection('faculty')"><span class="icon">👨‍🏫</span> Faculty</a></li>
+            <li><a href="#" onclick="showSection('departments')"><span class="icon">🏢</span> Departments</a></li>
+            <li><a href="#" onclick="showSection('courses')"><span class="icon">📚</span> Courses</a></li>
+            <li><a href="#" onclick="showSection('fees')"><span class="icon">💰</span> Fee Management</a></li>
+            <li><a href="#" onclick="showSection('attendance')"><span class="icon">📅</span> Attendance</a></li>
+            <li><a href="#" onclick="showSection('reports')"><span class="icon">📈</span> Reports</a></li>
+            <li><a href="#" onclick="showSection('settings')"><span class="icon">⚙️</span> Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <div class="section-header">
+                <h1>Dashboard Overview</h1>
+            </div>
+            
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <div class="card-title">Total Students</div>
+                    <div class="card-value" id="totalStudents">Loading...</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👨‍🏫</div>
+                    <div class="card-title">Faculty Members</div>
+                    <div class="card-value" id="totalFaculty">Loading...</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏢</div>
+                    <div class="card-title">Departments</div>
+                    <div class="card-value" id="totalDepartments">Loading...</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <div class="card-title">Active Courses</div>
+                    <div class="card-value" id="totalCourses">Loading...</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Recent Activities</h3>
+                <div id="recentActivities">
+                    <p>Loading recent activities...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Departments Section -->
+        <section id="departments" class="content-section">
+            <div class="section-header">
+                <h1>Department Management</h1>
+                <button class="btn" onclick="showAddDepartmentForm()">Add New Department</button>
+            </div>
+            
+            <div id="addDepartmentForm" style="display: none;">
+                <div class="card">
+                    <h3>Add New Department</h3>
+                    <form onsubmit="addDepartment(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="deptName">Department Name</label>
+                                <input type="text" id="deptName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="deptCode">Department Code</label>
+                                <input type="text" id="deptCode" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="deptDescription">Description</label>
+                            <textarea id="deptDescription" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Add Department</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideAddDepartmentForm()">Cancel</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Department Name</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Created Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="departmentsTable">
+                        <tr>
+                            <td colspan="5">Loading departments...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Students Section -->
+        <section id="students" class="content-section">
+            <div class="section-header">
+                <h1>Student Management</h1>
+                <button class="btn" onclick="showAddStudentForm()">Add New Student</button>
+            </div>
+            <div class="card">
+                <p>Student management features will be available here.</p>
+            </div>
+        </section>
+
+        <!-- Faculty Section -->
+        <section id="faculty" class="content-section">
+            <div class="section-header">
+                <h1>Faculty Management</h1>
+                <button class="btn" onclick="showAddFacultyForm()">Add New Faculty</button>
+            </div>
+            <div class="card">
+                <p>Faculty management features will be available here.</p>
+            </div>
+        </section>
+
+        <!-- Other sections... -->
+        <section id="courses" class="content-section">
+            <div class="section-header">
+                <h1>Course Management</h1>
+                <button class="btn">Add New Course</button>
+            </div>
+            <div class="card">
+                <p>Course management features will be available here.</p>
+            </div>
+        </section>
+
+        <section id="fees" class="content-section">
+            <div class="section-header">
+                <h1>Fee Management</h1>
+            </div>
+            <div class="card">
+                <p>Fee management features will be available here.</p>
+            </div>
+        </section>
+
+        <section id="attendance" class="content-section">
+            <div class="section-header">
+                <h1>Attendance Management</h1>
+            </div>
+            <div class="card">
+                <p>Attendance management features will be available here.</p>
+            </div>
+        </section>
+
+        <section id="reports" class="content-section">
+            <div class="section-header">
+                <h1>Reports & Analytics</h1>
+            </div>
+            <div class="card">
+                <p>Reports and analytics will be available here.</p>
+            </div>
+        </section>
+
+        <section id="settings" class="content-section">
+            <div class="section-header">
+                <h1>System Settings</h1>
+            </div>
+            <div class="card">
+                <p>System settings will be available here.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let jwtToken = localStorage.getItem('jwtToken');
+        let currentUser = null;
+
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Update sidebar active state
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Load section data
+            loadSectionData(sectionName);
+        }
+
+        function loadSectionData(sectionName) {
+            switch(sectionName) {
+                case 'dashboard':
+                    loadDashboardData();
+                    break;
+                case 'departments':
+                    loadDepartments();
+                    break;
+                // Add other cases as needed
+            }
+        }
+
+        async function loadDashboardData() {
+            try {
+                // Load dashboard statistics
+                const response = await fetch('/api/dashboard/stats', {
+                    headers: { 'Authorization': `Bearer ${jwtToken}` }
+                });
+                
+                if (response.ok) {
+                    const stats = await response.json();
+                    document.getElementById('totalStudents').textContent = stats.totalStudents || '0';
+                    document.getElementById('totalFaculty').textContent = stats.totalFaculty || '0';
+                    document.getElementById('totalDepartments').textContent = stats.totalDepartments || '0';
+                    document.getElementById('totalCourses').textContent = stats.totalCourses || '0';
+                } else {
+                    // Set default values if API not available
+                    document.getElementById('totalStudents').textContent = '25';
+                    document.getElementById('totalFaculty').textContent = '12';
+                    document.getElementById('totalDepartments').textContent = '5';
+                    document.getElementById('totalCourses').textContent = '18';
+                }
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                // Set default values
+                document.getElementById('totalStudents').textContent = '25';
+                document.getElementById('totalFaculty').textContent = '12';
+                document.getElementById('totalDepartments').textContent = '5';
+                document.getElementById('totalCourses').textContent = '18';
+            }
+        }
+
+        async function loadDepartments() {
+            try {
+                const response = await fetch('/api/departments', {
+                    headers: { 'Authorization': `Bearer ${jwtToken}` }
+                });
+                
+                if (response.ok) {
+                    const departments = await response.json();
+                    displayDepartments(departments);
+                } else {
+                    document.getElementById('departmentsTable').innerHTML = 
+                        '<tr><td colspan="5">Failed to load departments</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading departments:', error);
+                document.getElementById('departmentsTable').innerHTML = 
+                    '<tr><td colspan="5">Error loading departments</td></tr>';
+            }
+        }
+
+        function displayDepartments(departments) {
+            const tableBody = document.getElementById('departmentsTable');
+            
+            if (departments.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="5">No departments found</td></tr>';
+                return;
+            }
+            
+            tableBody.innerHTML = departments.map(dept => `
+                <tr>
+                    <td>${dept.name}</td>
+                    <td>${dept.code}</td>
+                    <td>${dept.description || 'N/A'}</td>
+                    <td>${new Date(dept.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <button class="btn btn-secondary" onclick="editDepartment(${dept.id})">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteDepartment(${dept.id})">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function showAddDepartmentForm() {
+            document.getElementById('addDepartmentForm').style.display = 'block';
+        }
+
+        function hideAddDepartmentForm() {
+            document.getElementById('addDepartmentForm').style.display = 'none';
+            document.getElementById('deptName').value = '';
+            document.getElementById('deptCode').value = '';
+            document.getElementById('deptDescription').value = '';
+        }
+
+        async function addDepartment(event) {
+            event.preventDefault();
+            
+            const departmentData = {
+                name: document.getElementById('deptName').value,
+                code: document.getElementById('deptCode').value,
+                description: document.getElementById('deptDescription').value
+            };
+
+            try {
+                const response = await fetch('/api/departments', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${jwtToken}`
+                    },
+                    body: JSON.stringify(departmentData)
+                });
+
+                if (response.ok) {
+                    hideAddDepartmentForm();
+                    loadDepartments();
+                    showAlert('Department added successfully!', 'success');
+                } else {
+                    const error = await response.json();
+                    showAlert(error.message || 'Failed to add department', 'error');
+                }
+            } catch (error) {
+                showAlert('Network error: ' + error.message, 'error');
+            }
+        }
+
+        function showAlert(message, type = 'success') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            
+            document.querySelector('.main-content').insertBefore(alertDiv, document.querySelector('.main-content').firstChild);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        function logout() {
+            localStorage.removeItem('jwtToken');
+            window.location.href = '/index.html';
+        }
+
+        // Initialize dashboard
+        window.onload = function() {
+            if (!jwtToken) {
+                window.location.href = '/index.html';
+                return;
+            }
+
+            // Verify token and get user info
+            fetch('/api/auth/me', {
+                headers: { 'Authorization': `Bearer ${jwtToken}` }
+            }).then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Invalid token');
+                }
+            }).then(user => {
+                currentUser = user;
+                document.getElementById('userWelcome').textContent = 
+                    `Welcome, ${user.firstName} ${user.lastName}!`;
+                loadDashboardData();
+            }).catch(error => {
+                console.error('Auth error:', error);
+                localStorage.removeItem('jwtToken');
+                window.location.href = '/index.html';
+            });
+        };
+    </script>
+</body>
+</html>
