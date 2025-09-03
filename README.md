@@ -1,6 +1,6 @@
 # 🎓 College ERP - Enterprise Resource Planning System
 
-A comprehensive, professional College ERP (Enterprise Resource Planning) system built with Spring Boot, featuring modern web UI, JWT authentication, and complete academic management capabilities.
+A comprehensive, professional College ERP (Enterprise Resource Planning) system built with Spring Boot, featuring modern web UI, JWT authentication, and complete academic management capabilities. 
 
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.0-brightgreen)
 ![Java](https://img.shields.io/badge/Java-17+-orange)
