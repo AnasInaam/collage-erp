@@ -675,7 +675,8 @@
                     </div>
                     <div class="form-group">
                         <label for="regPassword"><i class="fas fa-lock"></i> Password</label>
-                        <input type="password" id="regPassword" placeholder="Create a password" required>
+                        <input type="password" id="regPassword" placeholder="Create a password (min 6 characters)" required minlength="6">
+                        <small style="color: #666; font-size: 0.8em;">Password must be at least 6 characters long</small>
                     </div>
                     <div class="form-group">
                         <label for="regFirstName"><i class="fas fa-id-card"></i> First Name</label>
@@ -841,14 +842,29 @@
             submitBtn.disabled = true;
             
             const userData = {
-                username: document.getElementById('regUsername').value,
-                email: document.getElementById('regEmail').value,
+                username: document.getElementById('regUsername').value.trim(),
+                email: document.getElementById('regEmail').value.trim(),
                 password: document.getElementById('regPassword').value,
-                firstName: document.getElementById('regFirstName').value,
-                lastName: document.getElementById('regLastName').value,
-                phone: document.getElementById('regPhone').value,
+                firstName: document.getElementById('regFirstName').value.trim(),
+                lastName: document.getElementById('regLastName').value.trim(),
+                phone: document.getElementById('regPhone').value.trim(),
                 roles: [document.getElementById('regRole').value]
             };
+
+            // Client-side validation
+            if (userData.password.length < 6) {
+                showAlert('Password must be at least 6 characters long!', 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
+
+            if (!userData.username || !userData.email || !userData.firstName || !userData.lastName) {
+                showAlert('Please fill in all required fields!', 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
 
             try {
                 const response = await fetch('/api/auth/signup', {
@@ -865,7 +881,14 @@
                     // Pre-fill login form
                     document.getElementById('loginUsername').value = userData.username;
                 } else {
-                    showAlert(result.message || 'Registration failed', 'error');
+                    // Handle validation errors or other registration errors
+                    if (result.message) {
+                        showAlert(result.message, 'error');
+                    } else if (result.error) {
+                        showAlert(result.error, 'error');
+                    } else {
+                        showAlert('Registration failed. Please check your input.', 'error');
+                    }
                 }
             } catch (error) {
                 showAlert('Network error: ' + error.message, 'error');
@@ -884,8 +907,8 @@
             submitBtn.disabled = true;
             
             const loginData = {
-                username: document.getElementById('loginUsername').value,
-                password: document.getElementById('loginPassword').value
+                username: document.getElementById('loginUsername').value.trim(),
+                password: document.getElementById('loginPassword').value.trim()
             };
 
             try {

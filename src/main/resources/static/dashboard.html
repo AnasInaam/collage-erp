@@ -615,27 +615,39 @@
 
         // Initialize dashboard
         window.onload = function() {
-            if (!jwtToken) {
+            // Check if JWT token exists and is valid
+            if (!jwtToken || jwtToken.trim() === '' || jwtToken === 'null' || jwtToken === 'undefined') {
+                console.log('No valid JWT token found, redirecting to login');
+                localStorage.removeItem('jwtToken');
                 window.location.href = '/index.html';
                 return;
             }
 
+            console.log('JWT Token found:', jwtToken ? 'Yes' : 'No');
+            
             // Verify token and get user info
             fetch('/api/auth/me', {
-                headers: { 'Authorization': `Bearer ${jwtToken}` }
+                method: 'GET',
+                headers: { 
+                    'Authorization': `Bearer ${jwtToken}`,
+                    'Content-Type': 'application/json'
+                }
             }).then(response => {
+                console.log('Auth response status:', response.status);
                 if (response.ok) {
                     return response.json();
                 } else {
-                    throw new Error('Invalid token');
+                    throw new Error(`Authentication failed: ${response.status}`);
                 }
             }).then(user => {
+                console.log('User authenticated:', user);
                 currentUser = user;
                 document.getElementById('userWelcome').textContent = 
                     `Welcome, ${user.firstName} ${user.lastName}!`;
                 loadDashboardData();
             }).catch(error => {
                 console.error('Auth error:', error);
+                alert('Session expired or invalid. Please login again.');
                 localStorage.removeItem('jwtToken');
                 window.location.href = '/index.html';
             });

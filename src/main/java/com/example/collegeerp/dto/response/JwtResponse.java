@@ -22,12 +22,16 @@ public class JwtResponse {
         this.roles = roles;
     }
 
+    public String getToken() {
+        return token;
+    }
+
     public String getAccessToken() {
         return token;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.token = accessToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getTokenType() {

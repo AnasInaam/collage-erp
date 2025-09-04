@@ -48,93 +48,118 @@ public class AuthController {
     @PostMapping("/signin")
     @Operation(summary = "Sign in user", description = "Authenticate user and return JWT token")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        try {
+            // Trim username and password to handle any whitespace issues
+            String trimmedUsername = loginRequest.getUsername().trim();
+            String trimmedPassword = loginRequest.getPassword().trim();
+            
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(trimmedUsername, trimmedPassword));
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtUtils.generateJwtToken(authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
+            UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
 
-        UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+            // Update last login
+            User user = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
+            if (user != null) {
+                user.setLastLogin(LocalDateTime.now());
+                userRepository.save(user);
+            }
 
-        // Update last login
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
-        if (user != null) {
-            user.setLastLogin(LocalDateTime.now());
-            userRepository.save(user);
+            return ResponseEntity.ok(new JwtResponse(jwt,
+                    userDetails.getId(),
+                    userDetails.getUsername(),
+                    userDetails.getEmail(),
+                    userDetails.getFirstName(),
+                    userDetails.getLastName(),
+                    roles));
+        } catch (Exception e) {
+            System.out.println("Failed to find user '" + loginRequest.getUsername() + "'");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new MessageResponse("Error: Invalid username or password!"));
         }
-
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                userDetails.getFirstName(),
-                userDetails.getLastName(),
-                roles));
     }
 
     @PostMapping("/signup")
     @Operation(summary = "Register new user", description = "Register a new user account")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
+        try {
+            // Trim all input fields to handle whitespace issues
+            String trimmedUsername = signUpRequest.getUsername().trim();
+            String trimmedEmail = signUpRequest.getEmail().trim();
+            String trimmedPassword = signUpRequest.getPassword().trim();
+            String trimmedFirstName = signUpRequest.getFirstName().trim();
+            String trimmedLastName = signUpRequest.getLastName().trim();
+            
+            if (userRepository.existsByUsername(trimmedUsername)) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Username is already taken!"));
+            }
+
+            if (userRepository.existsByEmail(trimmedEmail)) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Email is already in use!"));
+            }
+
+            // Create new user's account
+            User user = new User(trimmedUsername,
+                    trimmedEmail,
+                    encoder.encode(trimmedPassword),
+                    trimmedFirstName,
+                    trimmedLastName);
+
+            if (signUpRequest.getPhone() != null) {
+                user.setPhone(signUpRequest.getPhone().trim());
+            }
+
+            Set<Role> roles = new HashSet<>();
+            
+            if (signUpRequest.getRoles() == null || signUpRequest.getRoles().isEmpty()) {
+                roles.add(Role.STUDENT);
+            } else {
+                signUpRequest.getRoles().forEach(role -> {
+                    switch (role) {
+                        case ADMIN:
+                            roles.add(Role.ADMIN);
+                            break;
+                        case FACULTY:
+                            roles.add(Role.FACULTY);
+                            break;
+                        case STAFF:
+                            roles.add(Role.STAFF);
+                            break;
+                        case PARENT:
+                            roles.add(Role.PARENT);
+                            break;
+                        case LIBRARIAN:
+                            roles.add(Role.LIBRARIAN);
+                            break;
+                        case ACCOUNTANT:
+                            roles.add(Role.ACCOUNTANT);
+                            break;
+                        default:
+                            roles.add(Role.STUDENT);
+                    }
+                });
+            }
+
+            user.setRoles(roles);
+            User savedUser = userRepository.save(user);
+            
+            System.out.println("User registered successfully: " + savedUser.getUsername());
+            return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        } catch (Exception e) {
+            System.out.println("Registration failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new MessageResponse("Error: Registration failed. Please try again."));
         }
-
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
-        }
-
-        // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getFirstName(),
-                signUpRequest.getLastName());
-
-        user.setPhone(signUpRequest.getPhone());
-
-        Set<Role> roles = new HashSet<>();
-        
-        if (signUpRequest.getRoles() == null || signUpRequest.getRoles().isEmpty()) {
-            roles.add(Role.STUDENT);
-        } else {
-            signUpRequest.getRoles().forEach(role -> {
-                switch (role) {
-                    case ADMIN:
-                        roles.add(Role.ADMIN);
-                        break;
-                    case FACULTY:
-                        roles.add(Role.FACULTY);
-                        break;
-                    case STAFF:
-                        roles.add(Role.STAFF);
-                        break;
-                    case PARENT:
-                        roles.add(Role.PARENT);
-                        break;
-                    case LIBRARIAN:
-                        roles.add(Role.LIBRARIAN);
-                        break;
-                    case ACCOUNTANT:
-                        roles.add(Role.ACCOUNTANT);
-                        break;
-                    default:
-                        roles.add(Role.STUDENT);
-                }
-            });
-        }
-
-        user.setRoles(roles);
-        userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
     @PostMapping("/signout")

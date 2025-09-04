@@ -4,7 +4,6 @@ com\example\collegeerp\model\User.class
 com\example\collegeerp\controller\DashboardController.class
 com\example\collegeerp\controller\HomeController.class
 com\example\collegeerp\model\Department.class
-com\example\springbootdemo\model\User.class
 com\example\collegeerp\model\StudentEnrollment.class
 com\example\collegeerp\dto\response\JwtResponse.class
 com\example\collegeerp\repository\UserRepository.class
