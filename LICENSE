@@ -1,0 +1,105 @@
+MIT License
+
+Copyright (c) 2025 Anas Inaam
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Third-Party Licenses
+
+This project uses several open-source libraries and frameworks. Here are their licenses:
+
+### Spring Framework
+- **License**: Apache License 2.0
+- **Website**: https://spring.io/
+- **License URL**: https://www.apache.org/licenses/LICENSE-2.0
+
+### PostgreSQL JDBC Driver
+- **License**: BSD 2-Clause License
+- **Website**: https://jdbc.postgresql.org/
+- **License URL**: https://jdbc.postgresql.org/about/license.html
+
+### HikariCP
+- **License**: Apache License 2.0
+- **Website**: https://github.com/brettwooldridge/HikariCP
+- **License URL**: https://www.apache.org/licenses/LICENSE-2.0
+
+### H2 Database
+- **License**: EPL 2.0 or MPL 2.0
+- **Website**: https://www.h2database.com/
+- **License URL**: https://www.h2database.com/html/license.html
+
+### JWT (jsonwebtoken)
+- **License**: Apache License 2.0
+- **Website**: https://github.com/jwtk/jjwt
+- **License URL**: https://www.apache.org/licenses/LICENSE-2.0
+
+### Hibernate
+- **License**: GNU Lesser General Public License 2.1
+- **Website**: https://hibernate.org/
+- **License URL**: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+
+### Jackson
+- **License**: Apache License 2.0
+- **Website**: https://github.com/FasterXML/jackson
+- **License URL**: https://www.apache.org/licenses/LICENSE-2.0
+
+### Swagger/OpenAPI
+- **License**: Apache License 2.0
+- **Website**: https://swagger.io/
+- **License URL**: https://www.apache.org/licenses/LICENSE-2.0
+
+### Font Awesome
+- **License**: Font Awesome Free License
+- **Website**: https://fontawesome.com/
+- **License URL**: https://fontawesome.com/license/free
+
+### Bootstrap (if used)
+- **License**: MIT License
+- **Website**: https://getbootstrap.com/
+- **License URL**: https://github.com/twbs/bootstrap/blob/main/LICENSE
+
+---
+
+## Attribution
+
+This software includes components developed by:
+- The Spring Framework Team
+- The PostgreSQL Global Development Group
+- The Hibernate Team
+- Brett Wooldridge (HikariCP)
+- The H2 Database Team
+- Various open-source contributors
+
+We are grateful to all the open-source developers whose work makes this project possible.
+
+---
+
+## Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+For questions about licensing, please contact: anasprog99@gmail.com

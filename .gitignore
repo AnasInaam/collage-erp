@@ -1,0 +1,343 @@
+# College ERP - Git Ignore Configuration
+# Generated on September 2025
+
+# =============================================================================
+# JAVA & MAVEN
+# =============================================================================
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# =============================================================================
+# SPRING BOOT
+# =============================================================================
+
+# Spring Boot build info
+target/classes/META-INF/build-info.properties
+
+# Spring Boot DevTools restart file
+.reloadtrigger
+
+# =============================================================================
+# IDE CONFIGURATIONS
+# =============================================================================
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# =============================================================================
+# OPERATING SYSTEM
+# =============================================================================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# =============================================================================
+# SECURITY & CREDENTIALS
+# =============================================================================
+
+# Environment files with secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Application properties with sensitive data
+application-secrets.properties
+application-local.properties
+*-secret.properties
+
+# SSL certificates and keys
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+*.keystore
+*.truststore
+
+# Database credentials (if stored in files)
+db-config.properties
+database.properties
+
+# =============================================================================
+# DATABASES
+# =============================================================================
+
+# H2 Database files
+*.db
+*.mv.db
+*.trace.db
+*.lock.db
+
+# SQLite
+*.sqlite
+*.sqlite3
+*.db3
+
+# Local database dumps
+*.sql
+*.dump
+
+# =============================================================================
+# LOGS & MONITORING
+# =============================================================================
+
+# Application logs
+logs/
+*.log
+log/
+application.log
+spring.log
+error.log
+debug.log
+
+# Log4j
+log4j.properties.local
+logback-spring-local.xml
+
+# =============================================================================
+# BUILD & DEPLOYMENT
+# =============================================================================
+
+# Docker
+Dockerfile.local
+docker-compose.override.yml
+.dockerignore.local
+
+# Build artifacts
+build/
+dist/
+out/
+target/
+
+# Deployment scripts with credentials
+deploy-secret.sh
+deploy-prod.sh
+*-deploy.properties
+
+# =============================================================================
+# FRONTEND & STATIC ASSETS
+# =============================================================================
+
+# Node modules (if using npm for frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Static assets cache
+.cache/
+public/assets/compiled/
+
+# Compressed files
+*.min.js
+*.min.css
+
+# =============================================================================
+# DEVELOPMENT & TESTING
+# =============================================================================
+
+# Test reports
+test-output/
+target/surefire-reports/
+target/failsafe-reports/
+target/site/
+
+# Coverage reports
+target/jacoco-reports/
+coverage/
+*.exec
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+temp/
+
+# Backup files
+*.bak
+*.backup
+*.orig
+*.swp
+*.swo
+*~
+
+# =============================================================================
+# CLOUD & DEPLOYMENT CONFIGURATIONS
+# =============================================================================
+
+# Heroku
+.env.heroku
+
+# AWS
+.aws/
+aws-config.json
+
+# Kubernetes
+k8s-secrets/
+*.kubeconfig
+
+# Terraform (if used)
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
+
+# =============================================================================
+# PROJECT SPECIFIC
+# =============================================================================
+
+# Custom configuration files
+setup-env.ps1
+local-config.properties
+
+# Documentation drafts
+docs/drafts/
+*.draft.md
+
+# Local scripts
+local-*.sh
+local-*.bat
+local-*.ps1
+
+# Test data
+test-data/
+sample-data/
+
+# Personal notes
+NOTES.md
+TODO.personal.md
+.personal/
+
+# =============================================================================
+# PACKAGE MANAGERS
+# =============================================================================
+
+# Gradle (if switching to Gradle)
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# SBT (if using Scala)
+project/boot/
+project/plugins/project/
+target/
+
+# =============================================================================
+# CUSTOM IGNORES
+# =============================================================================
+
+# Add your custom ignore patterns here
+# Example:
+# my-custom-folder/
+# *.custom-extension
+
+# End of .gitignore
