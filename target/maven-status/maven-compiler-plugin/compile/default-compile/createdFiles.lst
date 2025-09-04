@@ -9,6 +9,7 @@ com\example\collegeerp\dto\response\JwtResponse.class
 com\example\collegeerp\repository\UserRepository.class
 com\example\collegeerp\model\FeePayment.class
 com\example\collegeerp\model\Attendance.class
+com\example\collegeerp\service\UserService$1.class
 com\example\springbootdemo\CollegeErpApplication.class
 com\example\collegeerp\dto\response\MessageResponse.class
 com\example\collegeerp\security\JwtUtils.class
@@ -21,7 +22,6 @@ com\example\collegeerp\security\AuthTokenFilter.class
 com\example\collegeerp\model\enums\PaymentStatus.class
 com\example\collegeerp\model\enums\AttendanceStatus.class
 com\example\collegeerp\security\UserPrincipal.class
-com\example\collegeerp\controller\AuthController$1.class
 com\example\collegeerp\dto\request\SignupRequest.class
 com\example\collegeerp\controller\DepartmentController.class
 com\example\collegeerp\dto\request\LoginRequest.class

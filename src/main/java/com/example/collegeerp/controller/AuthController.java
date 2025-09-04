@@ -5,10 +5,10 @@ import com.example.collegeerp.dto.request.SignupRequest;
 import com.example.collegeerp.dto.response.JwtResponse;
 import com.example.collegeerp.dto.response.MessageResponse;
 import com.example.collegeerp.model.User;
-import com.example.collegeerp.model.enums.Role;
 import com.example.collegeerp.repository.UserRepository;
 import com.example.collegeerp.security.JwtUtils;
 import com.example.collegeerp.security.UserPrincipal;
+import com.example.collegeerp.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -22,10 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -38,6 +35,9 @@ public class AuthController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     PasswordEncoder encoder;
@@ -64,12 +64,8 @@ public class AuthController {
                     .map(item -> item.getAuthority())
                     .collect(Collectors.toList());
 
-            // Update last login
-            User user = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
-            if (user != null) {
-                user.setLastLogin(LocalDateTime.now());
-                userRepository.save(user);
-            }
+            // Update last login using service
+            userService.updateLastLogin(userDetails.getUsername());
 
             return ResponseEntity.ok(new JwtResponse(jwt,
                     userDetails.getId(),
@@ -79,7 +75,8 @@ public class AuthController {
                     userDetails.getLastName(),
                     roles));
         } catch (Exception e) {
-            System.out.println("Failed to find user '" + loginRequest.getUsername() + "'");
+            // Log the actual error for debugging but don't expose it to client
+            System.err.println("Login failed for user '" + loginRequest.getUsername() + "': " + e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new MessageResponse("Error: Invalid username or password!"));
         }
@@ -89,74 +86,37 @@ public class AuthController {
     @Operation(summary = "Register new user", description = "Register a new user account")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         try {
-            // Trim all input fields to handle whitespace issues
+            // Trim all input fields to handle whitespace issues and normalize email
             String trimmedUsername = signUpRequest.getUsername().trim();
-            String trimmedEmail = signUpRequest.getEmail().trim();
+            String trimmedEmail = signUpRequest.getEmail().trim().toLowerCase();
             String trimmedPassword = signUpRequest.getPassword().trim();
-            String trimmedFirstName = signUpRequest.getFirstName().trim();
-            String trimmedLastName = signUpRequest.getLastName().trim();
-            
-            if (userRepository.existsByUsername(trimmedUsername)) {
+
+            // Additional password validation
+            if (trimmedPassword.length() < 6) {
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Password must be at least 6 characters long!"));
+            }
+
+            if (userService.existsByUsername(trimmedUsername)) {
                 return ResponseEntity
                         .badRequest()
                         .body(new MessageResponse("Error: Username is already taken!"));
             }
 
-            if (userRepository.existsByEmail(trimmedEmail)) {
+            if (userService.existsByEmail(trimmedEmail)) {
                 return ResponseEntity
                         .badRequest()
                         .body(new MessageResponse("Error: Email is already in use!"));
             }
 
-            // Create new user's account
-            User user = new User(trimmedUsername,
-                    trimmedEmail,
-                    encoder.encode(trimmedPassword),
-                    trimmedFirstName,
-                    trimmedLastName);
-
-            if (signUpRequest.getPhone() != null) {
-                user.setPhone(signUpRequest.getPhone().trim());
-            }
-
-            Set<Role> roles = new HashSet<>();
-            
-            if (signUpRequest.getRoles() == null || signUpRequest.getRoles().isEmpty()) {
-                roles.add(Role.STUDENT);
-            } else {
-                signUpRequest.getRoles().forEach(role -> {
-                    switch (role) {
-                        case ADMIN:
-                            roles.add(Role.ADMIN);
-                            break;
-                        case FACULTY:
-                            roles.add(Role.FACULTY);
-                            break;
-                        case STAFF:
-                            roles.add(Role.STAFF);
-                            break;
-                        case PARENT:
-                            roles.add(Role.PARENT);
-                            break;
-                        case LIBRARIAN:
-                            roles.add(Role.LIBRARIAN);
-                            break;
-                        case ACCOUNTANT:
-                            roles.add(Role.ACCOUNTANT);
-                            break;
-                        default:
-                            roles.add(Role.STUDENT);
-                    }
-                });
-            }
-
-            user.setRoles(roles);
-            User savedUser = userRepository.save(user);
-            
-            System.out.println("User registered successfully: " + savedUser.getUsername());
+            // Create new user using service
+            User savedUser = userService.createUser(signUpRequest);            System.out.println("User registered successfully: " + savedUser.getUsername());
             return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
         } catch (Exception e) {
-            System.out.println("Registration failed: " + e.getMessage());
+            // Log the actual error for debugging but don't expose sensitive info
+            System.err.println("Registration failed: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new MessageResponse("Error: Registration failed. Please try again."));
         }

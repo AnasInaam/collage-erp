@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Role Testing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .info {
+            color: #007bff;
+            font-weight: bold;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .results {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .role-test {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin: 10px 0;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 College ERP Database & Role Testing</h1>
+        
+        <div class="test-section">
+            <h2>📊 Database Connection Test</h2>
+            <button onclick="testDatabaseConnection()">Test Database Connection</button>
+            <div id="dbConnectionResult" class="results"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>👥 Role Registration Testing</h2>
+            <p>Test all available roles to ensure database schema supports them:</p>
+            
+            <div class="role-test">
+                <strong>Base User Info:</strong>
+                <input type="text" id="baseUsername" placeholder="Username prefix" value="testuser">
+                <input type="email" id="baseEmail" placeholder="Email domain" value="@example.com">
+                <input type="password" id="basePassword" placeholder="Password" value="password123">
+            </div>
+            
+            <div class="role-test">
+                <button onclick="testAllRoles()">Test All Roles Registration</button>
+                <button onclick="clearTestUsers()">Clear Test Users</button>
+            </div>
+            
+            <div id="roleTestResult" class="results"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔐 Login & Dashboard Testing</h2>
+            <div class="role-test">
+                <input type="text" id="loginUsername" placeholder="Username" value="">
+                <input type="password" id="loginPassword" placeholder="Password" value="password123">
+                <button onclick="testLogin()">Test Login</button>
+                <button onclick="testDashboardAccess()">Test Dashboard Access</button>
+            </div>
+            <div id="loginTestResult" class="results"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 Current Database State</h2>
+            <button onclick="getDatabaseState()">Get All Users</button>
+            <button onclick="getDatabaseSchema()">Get Database Schema Info</button>
+            <div id="databaseStateResult" class="results"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8080';
+        let currentToken = null;
+
+        const roles = ['STUDENT', 'FACULTY', 'STAFF', 'PARENT', 'LIBRARIAN', 'ACCOUNTANT', 'ADMIN'];
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+            return `[${timestamp}] ${prefix} ${message}\n`;
+        }
+
+        async function testDatabaseConnection() {
+            const result = document.getElementById('dbConnectionResult');
+            result.innerHTML = log('Testing database connection...');
+            
+            try {
+                const response = await fetch(`${API_BASE}/actuator/health`);
+                if (response.ok) {
+                    const health = await response.json();
+                    result.innerHTML += log('Database connection successful!', 'success');
+                    result.innerHTML += log(`Health Status: ${JSON.stringify(health, null, 2)}`);
+                } else {
+                    result.innerHTML += log(`Database connection failed! Status: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                result.innerHTML += log(`Database connection error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testAllRoles() {
+            const result = document.getElementById('roleTestResult');
+            const baseUsername = document.getElementById('baseUsername').value || 'testuser';
+            const baseEmail = document.getElementById('baseEmail').value || '@example.com';
+            const password = document.getElementById('basePassword').value || 'password123';
+            
+            result.innerHTML = log('Starting role registration tests...');
+            
+            for (const role of roles) {
+                const username = `${baseUsername}_${role.toLowerCase()}`;
+                const email = `${username}${baseEmail}`;
+                
+                try {
+                    const userData = {
+                        username: username,
+                        email: email,
+                        password: password,
+                        firstName: 'Test',
+                        lastName: role,
+                        phone: '1234567890',
+                        roles: [role]
+                    };
+
+                    const response = await fetch(`${API_BASE}/api/auth/signup`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(userData)
+                    });
+
+                    const responseData = await response.json();
+
+                    if (response.ok) {
+                        result.innerHTML += log(`${role} role registration: SUCCESS`, 'success');
+                        
+                        // Test login immediately after registration
+                        const loginResponse = await fetch(`${API_BASE}/api/auth/signin`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                username: username,
+                                password: password
+                            })
+                        });
+
+                        if (loginResponse.ok) {
+                            const loginData = await loginResponse.json();
+                            result.innerHTML += log(`${role} login: SUCCESS - Token generated`, 'success');
+                        } else {
+                            result.innerHTML += log(`${role} login: FAILED`, 'error');
+                        }
+                    } else {
+                        result.innerHTML += log(`${role} role registration: FAILED - ${responseData.message || 'Unknown error'}`, 'error');
+                    }
+                } catch (error) {
+                    result.innerHTML += log(`${role} role test error: ${error.message}`, 'error');
+                }
+                
+                // Small delay between requests
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            result.innerHTML += log('Role testing completed!');
+        }
+
+        async function clearTestUsers() {
+            const result = document.getElementById('roleTestResult');
+            result.innerHTML += log('Note: Manual cleanup required - no bulk delete API available');
+        }
+
+        async function testLogin() {
+            const result = document.getElementById('loginTestResult');
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!username || !password) {
+                result.innerHTML = log('Please enter username and password', 'error');
+                return;
+            }
+            
+            result.innerHTML = log(`Testing login for: ${username}...`);
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/signin`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    currentToken = data.token;
+                    result.innerHTML += log(`Login successful!`, 'success');
+                    result.innerHTML += log(`User: ${data.firstName} ${data.lastName}`);
+                    result.innerHTML += log(`Roles: ${data.roles.join(', ')}`);
+                    result.innerHTML += log(`Token: ${data.token.substring(0, 50)}...`);
+                } else {
+                    result.innerHTML += log(`Login failed: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                result.innerHTML += log(`Login error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testDashboardAccess() {
+            const result = document.getElementById('loginTestResult');
+            
+            if (!currentToken) {
+                result.innerHTML += log('Please login first to test dashboard access', 'error');
+                return;
+            }
+            
+            result.innerHTML += log('Testing dashboard access...');
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/dashboard/data`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const dashboardData = await response.json();
+                    result.innerHTML += log(`Dashboard access: SUCCESS`, 'success');
+                    result.innerHTML += log(`Dashboard Data: ${JSON.stringify(dashboardData, null, 2)}`);
+                } else {
+                    result.innerHTML += log(`Dashboard access: FAILED - Status ${response.status}`, 'error');
+                }
+            } catch (error) {
+                result.innerHTML += log(`Dashboard access error: ${error.message}`, 'error');
+            }
+        }
+
+        async function getDatabaseState() {
+            const result = document.getElementById('databaseStateResult');
+            result.innerHTML = log('Getting database state...');
+            
+            // Note: This would require an admin endpoint to get all users
+            result.innerHTML += log('Note: No public endpoint available to list all users');
+            result.innerHTML += log('Recommendation: Check database directly via H2 console');
+        }
+
+        async function getDatabaseSchema() {
+            const result = document.getElementById('databaseStateResult');
+            result.innerHTML += log('Getting database schema info...');
+            
+            try {
+                const response = await fetch(`${API_BASE}/actuator/info`);
+                if (response.ok) {
+                    const info = await response.json();
+                    result.innerHTML += log('Application Info:', 'success');
+                    result.innerHTML += log(JSON.stringify(info, null, 2));
+                } else {
+                    result.innerHTML += log('Schema info not available via actuator', 'error');
+                }
+            } catch (error) {
+                result.innerHTML += log(`Schema info error: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-test on page load
+        window.onload = function() {
+            testDatabaseConnection();
+        };
+    </script>
+</body>
+</html>

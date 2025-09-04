@@ -21,9 +21,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         // Trim username to handle whitespace issues
         String trimmedUsername = username.trim();
         
+        System.out.println("DEBUG: Looking for user with username: '" + trimmedUsername + "'");
+        
         User user = userRepository.findByUsername(trimmedUsername)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + trimmedUsername));
 
+        System.out.println("DEBUG: Found user: " + user.getUsername() + " with roles: " + user.getRoles());
+        
         return UserPrincipal.create(user);
     }
 }

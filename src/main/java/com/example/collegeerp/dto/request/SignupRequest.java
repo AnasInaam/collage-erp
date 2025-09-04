@@ -8,28 +8,28 @@ import jakarta.validation.constraints.Size;
 import java.util.Set;
 
 public class SignupRequest {
-    @NotBlank
-    @Size(min = 3, max = 20)
+    @NotBlank(message = "Username is required")
+    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
     private String username;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
+    @NotBlank(message = "Email is required")
+    @Size(max = 50, message = "Email must not exceed 50 characters")
+    @Email(message = "Please provide a valid email address")
     private String email;
 
-    @NotBlank
-    @Size(min = 6, max = 40)
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, max = 40, message = "Password must be between 6 and 40 characters")
     private String password;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "First name is required")
+    @Size(max = 50, message = "First name must not exceed 50 characters")
     private String firstName;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "Last name is required")
+    @Size(max = 50, message = "Last name must not exceed 50 characters")
     private String lastName;
 
-    @Size(max = 15)
+    @Size(max = 15, message = "Phone number must not exceed 15 characters")
     private String phone;
 
     private Set<Role> roles;
