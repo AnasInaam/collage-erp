@@ -1,6 +1,5 @@
 package com.example.collegeerp.dto.request;
 
-import com.example.collegeerp.model.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -32,7 +31,7 @@ public class SignupRequest {
     @Size(max = 15, message = "Phone number must not exceed 15 characters")
     private String phone;
 
-    private Set<Role> roles;
+    private Set<String> roles;
 
     public String getUsername() {
         return username;
@@ -82,11 +81,11 @@ public class SignupRequest {
         this.phone = phone;
     }
 
-    public Set<Role> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 }

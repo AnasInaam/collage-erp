@@ -52,28 +52,34 @@ public class UserService {
         if (signUpRequest.getRoles() == null || signUpRequest.getRoles().isEmpty()) {
             roles.add(Role.STUDENT);
         } else {
-            signUpRequest.getRoles().forEach(role -> {
-                switch (role) {
-                    case ADMIN:
-                        roles.add(Role.ADMIN);
-                        break;
-                    case FACULTY:
-                        roles.add(Role.FACULTY);
-                        break;
-                    case STAFF:
-                        roles.add(Role.STAFF);
-                        break;
-                    case PARENT:
-                        roles.add(Role.PARENT);
-                        break;
-                    case LIBRARIAN:
-                        roles.add(Role.LIBRARIAN);
-                        break;
-                    case ACCOUNTANT:
-                        roles.add(Role.ACCOUNTANT);
-                        break;
-                    default:
-                        roles.add(Role.STUDENT);
+            signUpRequest.getRoles().forEach(roleStr -> {
+                try {
+                    Role role = Role.valueOf(roleStr.toUpperCase());
+                    switch (role) {
+                        case ADMIN:
+                            roles.add(Role.ADMIN);
+                            break;
+                        case FACULTY:
+                            roles.add(Role.FACULTY);
+                            break;
+                        case STAFF:
+                            roles.add(Role.STAFF);
+                            break;
+                        case PARENT:
+                            roles.add(Role.PARENT);
+                            break;
+                        case LIBRARIAN:
+                            roles.add(Role.LIBRARIAN);
+                            break;
+                        case ACCOUNTANT:
+                            roles.add(Role.ACCOUNTANT);
+                            break;
+                        default:
+                            roles.add(Role.STUDENT);
+                    }
+                } catch (IllegalArgumentException e) {
+                    // Invalid role, default to STUDENT
+                    roles.add(Role.STUDENT);
                 }
             });
         }

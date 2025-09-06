@@ -68,7 +68,7 @@ public class SecurityConfig {
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/status").permitAll()
                 .requestMatchers("/login*", "/error").permitAll()
-                .requestMatchers("/*.html", "/*.js", "/*.css").permitAll()
+                .requestMatchers("/*.html", "/*.js", "/*.css", "/js/**", "/css/**", "/partials/**").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/faculty/**").hasAnyRole("FACULTY", "ADMIN")
                 .requestMatchers("/api/student/**").hasAnyRole("STUDENT", "FACULTY", "ADMIN")

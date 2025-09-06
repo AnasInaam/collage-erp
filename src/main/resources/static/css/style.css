@@ -1,0 +1,60 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    padding-top: 56px;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    padding: 100px 0;
+}
+
+.feature-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.scrolling-ticker-container {
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.scrolling-ticker {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 20s linear infinite;
+}
+
+.scrolling-ticker span {
+    margin-right: 50px;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+.login-card, .registration-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+.progress-bar {
+    transition: width 0.3s ease-in-out;
+}
