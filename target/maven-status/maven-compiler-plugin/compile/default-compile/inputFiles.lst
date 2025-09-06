@@ -18,7 +18,6 @@ D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\service\Department
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\Attendance.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\dto\request\SignupRequest.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\enums\Gender.java
-D:\PROJECTS\Java project\src\main\java\com\example\springbootdemo\SpringBootDemoApplication.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\enums\PaymentStatus.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\controller\AuthController.java
 D:\PROJECTS\Java project\src\main\java\com\example\springbootdemo\model\User.java
@@ -34,7 +33,5 @@ D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\User.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\config\SecurityConfig.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\service\CustomUserDetailsService.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\security\UserPrincipal.java
-D:\PROJECTS\Java project\src\main\java\com\example\springbootdemo\repository\UserRepository.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\controller\DashboardController.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\service\UserService.java
-D:\PROJECTS\Java project\src\main\java\com\example\springbootdemo\service\UserService.java
