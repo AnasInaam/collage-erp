@@ -25,26 +25,38 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
         
         .glass-modal {
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--glass-bg-light);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid var(--glass-border);
         }
 
         .gradient-text {
-            background: linear-gradient(45deg, #28a745, #20c997);
+            background: linear-gradient(45deg, var(--primary-blue), var(--accent-green));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
         .btn-primary {
-            background: linear-gradient(45deg, #28a745, #20c997);
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-blue-dark));
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, var(--primary-blue-dark), var(--secondary-purple));
         }
 
         /* Custom scrollbar */
@@ -66,9 +78,390 @@
         .mobile-menu {
             transition: transform 0.3s ease-in-out;
         }
+
+        /* Floating Animation Keyframes */
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+        
+        @keyframes float-medium {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-15px) rotate(90deg); opacity: 0.8; }
+        }
+        
+        @keyframes float-fast {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+            50% { transform: translateY(-25px) rotate(360deg); opacity: 1; }
+        }
+
+        .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+        .animate-float-medium { animation: float-medium 4s ease-in-out infinite; }
+        .animate-float-fast { animation: float-fast 3s ease-in-out infinite; }
+
+        /* Glassmorphism Enhanced */
+        .glass-hero {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Particle Animation */
+        @keyframes particle-float {
+            0% { transform: translate(0, 100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(0, -100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: particle-float linear infinite;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Removed Magnetic Cursor for better compatibility */
+
+        /* Hover Lift Effects */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== STANDARDIZED COLOR THEME ===== */
+        :root {
+            /* Primary Brand Colors */
+            --primary-blue: #3b82f6;
+            --primary-blue-dark: #2563eb;
+            --primary-blue-light: #60a5fa;
+            
+            /* Secondary Colors */
+            --secondary-purple: #8b5cf6;
+            --secondary-purple-dark: #7c3aed;
+            --secondary-purple-light: #a78bfa;
+            
+            /* Accent Colors */
+            --accent-green: #10b981;
+            --accent-green-dark: #059669;
+            --accent-green-light: #34d399;
+            
+            /* Neutral Colors */
+            --neutral-gray-900: #111827;
+            --neutral-gray-800: #1f2937;
+            --neutral-gray-700: #374151;
+            --neutral-gray-600: #4b5563;
+            --neutral-gray-500: #6b7280;
+            --neutral-gray-400: #9ca3af;
+            --neutral-gray-300: #d1d5db;
+            --neutral-gray-200: #e5e7eb;
+            --neutral-gray-100: #f3f4f6;
+            
+            /* Glass Effect Colors */
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-bg-dark: rgba(31, 41, 55, 0.9);
+            --glass-bg-light: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Dynamic Gradient Background */
+        .dynamic-bg {
+            background: linear-gradient(-45deg, var(--primary-blue), var(--secondary-purple), var(--primary-blue-light), var(--secondary-purple-light));
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Scroll Triggered Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Statistics Counter Animation */
+        .counter {
+            font-weight: 700;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Interactive Timeline */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            border-left-color: #28a745;
+            transform: translateX(5px);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #28a745;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.5);
+            box-shadow: 0 0 20px #28a745;
+        }
+
+        /* Weather Widget Styles */
+        .weather-widget {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.8), rgba(155, 89, 182, 0.8));
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            color: white;
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 30;
+            min-width: 200px;
+        }
+
+        /* Navigation Enhancement - Professional Standard Theme */
+        .nav-enhanced {
+            backdrop-filter: blur(20px);
+            background: var(--glass-bg-dark);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--glass-border);
+            min-height: 80px;
+        }
+
+        .nav-enhanced.scrolled {
+            background: var(--neutral-gray-800);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-enhanced.scrolled .nav-link {
+            color: var(--neutral-gray-200) !important;
+        }
+
+        .nav-enhanced.scrolled .gradient-text {
+            background: linear-gradient(45deg, var(--primary-blue-light), var(--accent-green-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            color: var(--neutral-gray-200);
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue-light);
+        }
+
+        /* Professional Mega Menu */
+        .mega-menu {
+            background: var(--glass-bg-light);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .mega-menu a:hover {
+            color: var(--primary-blue) !important;
+            background: var(--glass-bg);
+        }
+
+        /* Professional spacing */
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Fix for content overlapping */
+        .main-content {
+            margin-top: 80px;
+        }
+
+        /* Hero section spacing fix */
+        .hero-section {
+            min-height: calc(100vh - 80px);
+            margin-top: 80px;
+        }
+
+        /* ===== PROFESSIONAL RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .floating-icon {
+                font-size: 1.5rem !important;
+            }
+            
+            .counter {
+                font-size: 1.8rem;
+            }
+            
+            .weather-widget {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 1rem;
+                width: calc(100% - 2rem);
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .hero-section {
+                min-height: calc(100vh - 60px);
+                margin-top: 60px;
+            }
+
+            .nav-enhanced {
+                min-height: 60px;
+            }
+
+            .nav-enhanced .h-20 {
+                height: 60px;
+            }
+
+            .main-content {
+                margin-top: 60px;
+            }
+
+            .mega-menu {
+                position: relative !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                width: 100% !important;
+                margin-top: 0 !important;
+                box-shadow: none !important;
+                background: var(--glass-bg) !important;
+                backdrop-filter: blur(10px) !important;
+            }
+
+            .floating-icon {
+                display: none; /* Hide floating icons on mobile for better performance */
+            }
+
+            .particle {
+                animation-duration: 8s !important; /* Slower particles on mobile */
+            }
+
+            .glass-card {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .glass-hero {
+                padding: 1.5rem !important;
+                margin: 1rem !important;
+            }
+
+            .text-4xl {
+                font-size: 2rem !important;
+            }
+
+            .text-7xl {
+                font-size: 3rem !important;
+            }
+
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        /* ===== ACCESSIBILITY & PERFORMANCE ===== */
+        /* High DPI / Retina Display Support */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .glass-card, .glass-hero, .mega-menu {
+                backdrop-filter: blur(15px);
+            }
+        }
+
+        /* Reduced Motion Support for Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .animate-float-slow, .animate-float-medium, .animate-float-fast {
+                animation: none;
+            }
+            
+            .particle {
+                animation: none;
+                opacity: 0.3;
+            }
+            
+            .dynamic-bg {
+                animation: none;
+                background: linear-gradient(135deg, var(--primary-blue), var(--secondary-purple));
+            }
+            
+            .hover-lift {
+                transition: none;
+            }
+            
+            .hover-lift:hover {
+                transform: none;
+            }
+
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        *:focus {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body class="w-full min-h-screen overflow-x-hidden">
+
+    <!-- Weather Widget -->
+    <div class="weather-widget fade-in-up" id="weather-widget">
+        <div class="flex items-center justify-between mb-2">
+            <h3 class="font-semibold">Campus Weather</h3>
+            <i class="fas fa-sun text-yellow-300 text-xl" id="weather-icon"></i>
+        </div>
+        <div class="text-2xl font-bold" id="temperature">24°C</div>
+        <div class="text-sm opacity-75" id="weather-desc">Sunny</div>
+        <div class="text-xs mt-2 opacity-60">Perfect day for campus activities!</div>
+    </div>
 
     <!-- Status Indicator -->
     <div id="statusIndicator" class="fixed top-20 right-5 z-50 flex items-center px-4 py-2 rounded-lg text-white transition-all duration-500 transform translate-x-full">
@@ -77,45 +470,67 @@
     </div>
 
     <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-card" id="navbar">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 nav-enhanced" id="navbar">
+        <div class="nav-container">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
-                <a href="#home" class="flex items-center space-x-2">
+                <a href="#home" class="flex items-center space-x-3 hover:scale-105 transform transition duration-300">
                     <i class="fas fa-graduation-cap text-3xl gradient-text"></i>
-                    <span class="text-xl font-extrabold text-white">Smart ERP</span>
+                    <span class="text-xl font-extrabold text-white nav-link">Smart ERP</span>
                 </a>
 
-                <!-- Desktop Navigation -->
+                <!-- Desktop Navigation with Mega Menu -->
                 <nav class="hidden lg:flex items-center space-x-8">
-                    <a href="#home" class="text-gray-200 hover:text-white transition">Home</a>
-                    <a href="#features" class="text-gray-200 hover:text-white transition">Features</a>
-                    <a href="#news" class="text-gray-200 hover:text-white transition">News</a>
-                    <a href="#contact" class="text-gray-200 hover:text-white transition">Contact</a>
+                    <a href="#home" class="nav-link text-gray-200 hover:text-white transition">Home</a>
+                    
+                    <a href="#features" class="nav-link text-gray-200 hover:text-white transition">Features</a>
+                    
+                    <a href="#news" class="nav-link text-gray-200 hover:text-white transition">News</a>
+                    <a href="contact.html" class="nav-link text-gray-200 hover:text-white transition">Contact</a>
                 </nav>
 
                 <!-- Desktop Actions -->
                 <div class="hidden lg:flex items-center space-x-4">
-                    <button onclick="openModal('loginModal')" class="px-6 py-2 text-white font-semibold rounded-lg btn-primary shadow-lg hover:scale-105 transform transition">Login</button>
-                    <button onclick="openModal('registerModal')" class="px-6 py-2 text-white bg-gray-700/50 font-semibold rounded-lg shadow-lg hover:bg-gray-600/50 transition">Register</button>
+                    <!-- Login/Register Buttons -->
+                    <button onclick="openModal('loginModal')" class="px-6 py-2 text-white font-semibold rounded-lg btn-primary shadow-lg hover:scale-105 transform transition">
+                        <i class="fas fa-sign-in-alt mr-2"></i>Login
+                    </button>
+                    <button onclick="openModal('registerModal')" class="px-6 py-2 text-white bg-gray-700/50 font-semibold rounded-lg shadow-lg hover:bg-gray-600/50 transition">
+                        <i class="fas fa-user-plus mr-2"></i>Register
+                    </button>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="lg:hidden">
-                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none p-2">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
+            </div>
+
+            <!-- Breadcrumb Trail -->
+            <div class="hidden lg:flex items-center space-x-2 pb-2 text-sm text-white/60" id="breadcrumb">
+                <a href="#home" class="hover:text-white transition">Home</a>
+                <i class="fas fa-chevron-right text-xs"></i>
+                <span class="text-white/80" id="current-section">Welcome</span>
             </div>
         </div>
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu lg:hidden absolute top-20 left-0 w-full glass-card transform -translate-x-full">
             <div class="flex flex-col items-center space-y-4 py-8">
-                <a href="#home" class="text-gray-200 hover:text-white transition block w-full text-center py-2">Home</a>
-                <a href="#features" class="text-gray-200 hover:text-white transition block w-full text-center py-2">Features</a>
-                <a href="#news" class="text-gray-200 hover:text-white transition block w-full text-center py-2">News</a>
-                <a href="#contact" class="text-gray-200 hover:text-white transition block w-full text-center py-2">Contact</a>
+                <a href="#home" class="text-gray-200 hover:text-white transition block w-full text-center py-2">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+                <a href="#features" class="text-gray-200 hover:text-white transition block w-full text-center py-2">
+                    <i class="fas fa-star mr-2"></i>Features
+                </a>
+                <a href="#news" class="text-gray-200 hover:text-white transition block w-full text-center py-2">
+                    <i class="fas fa-newspaper mr-2"></i>News
+                </a>
+                <a href="contact.html" class="text-gray-200 hover:text-white transition block w-full text-center py-2">
+                    <i class="fas fa-envelope mr-2"></i>Contact
+                </a>
                 <div class="flex space-x-4 pt-4">
                     <button onclick="openModal('loginModal')" class="px-6 py-2 text-white font-semibold rounded-lg btn-primary shadow-lg">Login</button>
                     <button onclick="openModal('registerModal')" class="px-6 py-2 text-white bg-gray-700/50 font-semibold rounded-lg shadow-lg">Register</button>
@@ -125,15 +540,80 @@
     </header>
 
     <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section id="home" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
-            <div class="absolute inset-0 bg-black opacity-20"></div>
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Empowering Education, Seamlessly.</h1>
-                <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-gray-300">The all-in-one ERP solution designed to streamline campus management, from admissions to alumni.</p>
-                <div class="flex justify-center space-x-4">
-                    <a href="#features" class="px-8 py-3 text-white font-bold rounded-full btn-primary shadow-2xl hover:scale-105 transform transition">Discover Features</a>
+    <main class="main-content">
+        <!-- Hero Section with Professional Spacing -->
+        <section id="home" class="hero-section relative flex items-center justify-center text-white overflow-hidden dynamic-bg">
+            <!-- Parallax Video Background -->
+            <div class="absolute inset-0 z-0">
+                <video autoplay muted loop class="w-full h-full object-cover opacity-60" id="hero-video">
+                    <source src="https://player.vimeo.com/external/289355164.sd.mp4" type="video/mp4">
+                </video>
+                <!-- Dynamic Gradient Overlay -->
+                <div class="absolute inset-0 transition-all duration-2000" id="dynamic-gradient"></div>
+            </div>
+
+            <!-- Particle System Container -->
+            <div class="absolute inset-0 pointer-events-none" id="particles-container"></div>
+
+            <!-- Floating Academic Icons -->
+            <div class="absolute inset-0 pointer-events-none overflow-hidden">
+                <div class="floating-icon absolute top-20 left-20 text-white/30 text-4xl animate-float-slow">📚</div>
+                <div class="floating-icon absolute top-40 right-32 text-white/25 text-3xl animate-float-medium">🎓</div>
+                <div class="floating-icon absolute bottom-40 left-40 text-white/35 text-5xl animate-float-fast">⚛️</div>
+                <div class="floating-icon absolute bottom-20 right-20 text-white/30 text-4xl animate-float-slow">🔬</div>
+                <div class="floating-icon absolute top-60 left-1/2 text-white/25 text-3xl animate-float-medium">📐</div>
+                <div class="floating-icon absolute top-32 left-1/3 text-white/20 text-2xl animate-float-fast">🧪</div>
+                <div class="floating-icon absolute bottom-60 right-1/3 text-white/25 text-3xl animate-float-slow">📊</div>
+            </div>
+
+            <!-- Hero Content -->
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center z-20 relative">
+                <!-- Main Hero Content -->
+                <div class="glass-hero rounded-3xl p-8 md:p-12 hover-lift">
+                    <h1 class="text-4xl md:text-7xl font-extrabold mb-6 leading-tight fade-in-up">
+                        <span class="gradient-text">Empowering Education,</span> 
+                        <br class="hidden md:block">
+                        <span class="text-white">Seamlessly.</span>
+                    </h1>
+                    <p class="text-lg md:text-2xl mb-8 max-w-4xl mx-auto text-gray-200 fade-in-up">
+                        The all-in-one ERP solution designed to revolutionize campus management, from admissions to alumni success stories.
+                    </p>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12 fade-in-up">
+                        <a href="#features" class="px-8 py-4 text-white font-bold rounded-full btn-primary shadow-2xl hover:scale-105 transform transition duration-300">
+                            <i class="fas fa-rocket mr-2"></i>Discover Features
+                        </a>
+                        <button onclick="startVirtualTour()" class="px-8 py-4 text-white bg-white/20 font-bold rounded-full shadow-2xl hover:bg-white/30 hover:scale-105 transform transition duration-300 backdrop-blur-sm">
+                            <i class="fas fa-street-view mr-2"></i>Virtual Campus Tour
+                        </button>
+                    </div>
+
+                    <!-- Statistics Cards with Counter Animation -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 fade-in-up">
+                        <div class="glass-card rounded-2xl p-6 text-center hover-lift">
+                            <div class="counter" data-target="15000">0</div>
+                            <p class="text-gray-300 mt-2">Active Students</p>
+                            <div class="w-16 h-1 bg-gradient-to-r from-green-400 to-green-600 mx-auto mt-3 rounded-full"></div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 text-center hover-lift">
+                            <div class="counter" data-target="800">0</div>
+                            <p class="text-gray-300 mt-2">Expert Faculty</p>
+                            <div class="w-16 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mt-3 rounded-full"></div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 text-center hover-lift">
+                            <div class="counter" data-target="150">0</div>
+                            <p class="text-gray-300 mt-2">Available Courses</p>
+                            <div class="w-16 h-1 bg-gradient-to-r from-purple-400 to-purple-600 mx-auto mt-3 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Access Actions (Floating Action Buttons) -->
+                <div class="fixed bottom-8 right-8 z-30 flex flex-col gap-4">
+                    <button onclick="toggleChatBot()" class="w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full text-white shadow-2xl hover:scale-110 transform transition duration-300 flex items-center justify-center">
+                        <i class="fas fa-comment text-lg"></i>
+                    </button>
                 </div>
             </div>
         </section>
@@ -223,38 +703,169 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer id="contact" class="glass-card mt-20">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-white">
-                <div>
-                    <h3 class="font-bold text-lg mb-4">Smart College ERP</h3>
-                    <p class="text-gray-300 text-sm">Streamlining education management for a brighter future.</p>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-4">Quick Links</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#home" class="text-gray-300 hover:text-white">Home</a></li>
-                        <li><a href="#features" class="text-gray-300 hover:text-white">Features</a></li>
-                        <li><a href="http://localhost:8080/swagger-ui.html" target="_blank" class="text-gray-300 hover:text-white">API Docs</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-4">Contact Us</h3>
-                    <p class="text-gray-300 text-sm"><i class="fas fa-envelope mr-2"></i>info@smartcollegeerp.com</p>
-                    <p class="text-gray-300 text-sm mt-2"><i class="fas fa-phone mr-2"></i>+1 (555) 123-4567</p>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg mb-4">Follow Us</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+    <!-- Enhanced Footer -->
+    <footer id="contact" class="relative mt-20">
+        <!-- Footer Background -->
+        <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 opacity-95"></div>
+        <div class="absolute inset-0 backdrop-blur-sm"></div>
+        
+        <!-- Footer Content -->
+        <div class="relative z-10">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <!-- Main Footer Content -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-white mb-12">
+                    
+                    <!-- Company Info -->
+                    <div class="lg:col-span-1">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <i class="fas fa-graduation-cap text-3xl text-blue-400"></i>
+                            <h3 class="font-bold text-2xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                                Smart ERP
+                            </h3>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                            Revolutionizing educational institution management with cutting-edge technology and comprehensive solutions for the digital age.
+                        </p>
+                        
+                        <!-- Social Media -->
+                        <div class="flex space-x-4">
+                            <a href="#" class="group bg-blue-600 hover:bg-blue-700 rounded-full p-3 transition-all duration-300 transform hover:scale-110">
+                                <i class="fab fa-facebook-f text-white group-hover:animate-pulse"></i>
+                            </a>
+                            <a href="#" class="group bg-blue-400 hover:bg-blue-500 rounded-full p-3 transition-all duration-300 transform hover:scale-110">
+                                <i class="fab fa-twitter text-white group-hover:animate-pulse"></i>
+                            </a>
+                            <a href="#" class="group bg-blue-700 hover:bg-blue-800 rounded-full p-3 transition-all duration-300 transform hover:scale-110">
+                                <i class="fab fa-linkedin-in text-white group-hover:animate-pulse"></i>
+                            </a>
+                            <a href="#" class="group bg-red-600 hover:bg-red-700 rounded-full p-3 transition-all duration-300 transform hover:scale-110">
+                                <i class="fab fa-youtube text-white group-hover:animate-pulse"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div>
+                        <h3 class="font-bold text-lg mb-6 text-blue-400">Quick Links</h3>
+                        <ul class="space-y-3">
+                            <li><a href="#home" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                Home
+                            </a></li>
+                            <li><a href="#features" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                Features
+                            </a></li>
+                            <li><a href="#about" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                About Us
+                            </a></li>
+                            <li><a href="contact.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                Contact
+                            </a></li>
+                            <li><a href="http://localhost:8080/swagger-ui.html" target="_blank" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                API Documentation
+                            </a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Services -->
+                    <div>
+                        <h3 class="font-bold text-lg mb-6 text-blue-400">Our Services</h3>
+                        <ul class="space-y-3">
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                Student Management
+                            </a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                Faculty Portal
+                            </a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                Academic Management
+                            </a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                Financial Management
+                            </a></li>
+                            <li><a href="#" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                Analytics & Reports
+                            </a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div>
+                        <h3 class="font-bold text-lg mb-6 text-blue-400">Contact Info</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-map-marker-alt text-blue-400 mt-1"></i>
+                                <div>
+                                    <p class="text-gray-300 text-sm">123 Education Street</p>
+                                    <p class="text-gray-300 text-sm">Knowledge City, KC 12345</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-envelope text-blue-400"></i>
+                                <a href="mailto:info@smarterp.edu" class="text-gray-300 hover:text-blue-400 transition-colors text-sm">
+                                    info@smarterp.edu
+                                </a>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-phone text-blue-400"></i>
+                                <a href="tel:+15551234567" class="text-gray-300 hover:text-blue-400 transition-colors text-sm">
+                                    +1 (555) 123-4567
+                                </a>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-clock text-blue-400"></i>
+                                <div>
+                                    <p class="text-gray-300 text-sm">Mon - Fri: 9:00 AM - 6:00 PM</p>
+                                    <p class="text-gray-300 text-sm">Saturday: 10:00 AM - 4:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
-                &copy; 2025 Smart College ERP. All rights reserved.
+
+                <!-- Newsletter Subscription -->
+                <div class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm rounded-xl p-8 mb-12 border border-white/10">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white mb-4">
+                            Stay Updated with Smart ERP
+                        </h3>
+                        <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
+                            Subscribe to our newsletter to get the latest updates on new features, educational insights, and system enhancements.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                            <input type="email" placeholder="Enter your email" 
+                                   class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors">
+                            <button class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
+                                Subscribe
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyright and Legal -->
+                <div class="border-t border-gray-700 pt-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <div class="text-center md:text-left mb-4 md:mb-0">
+                            <p class="text-gray-400 text-sm">
+                                &copy; 2025 Smart ERP. All rights reserved. Built with ❤️ for education.
+                            </p>
+                        </div>
+                        <div class="flex space-x-6 text-sm">
+                            <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Privacy Policy</a>
+                            <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Terms of Service</a>
+                            <a href="contact.html" class="text-gray-400 hover:text-blue-400 transition-colors">Support</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
@@ -512,7 +1123,241 @@
         document.addEventListener('DOMContentLoaded', () => {
             checkServerStatus();
             setInterval(checkServerStatus, 30000); // Check every 30 seconds
+            
+            // Initialize enhanced features
+            initParticleSystem();
+            initScrollAnimations();
+            initCounterAnimations();
+            initDynamicGradient();
+            initWeatherWidget();
+            initSmartNavigation();
+            initKeyboardShortcuts();
         });
+
+        // === ENHANCED FEATURES ===
+
+        // Particle System
+        function initParticleSystem() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 50;
+            const particles = ['📚', '🎓', '⚛️', '🔬', '📐', '🧪', '📊', '💡', '🌟', '✨'];
+
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                
+                container.appendChild(particle);
+
+                // Remove particle after animation
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 15000);
+            }
+
+            // Create initial particles
+            for (let i = 0; i < particleCount; i++) {
+                setTimeout(() => createParticle(), i * 200);
+            }
+
+            // Continuously create new particles
+            setInterval(createParticle, 1000);
+        }
+
+        // Scroll-triggered Animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Counter Animations
+        function initCounterAnimations() {
+            const counters = document.querySelectorAll('.counter');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        function animateCounter(element) {
+            const target = parseInt(element.dataset.target);
+            const duration = 2000;
+            const start = Date.now();
+            
+            const timer = setInterval(() => {
+                const elapsed = Date.now() - start;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const current = Math.floor(progress * target);
+                element.textContent = current.toLocaleString();
+                
+                if (progress >= 1) {
+                    clearInterval(timer);
+                    element.textContent = target.toLocaleString();
+                }
+            }, 16);
+        }
+
+        // Dynamic Gradient Background
+        function initDynamicGradient() {
+            const gradient = document.getElementById('dynamic-gradient');
+            const hour = new Date().getHours();
+            
+            let gradientStyle;
+            if (hour >= 6 && hour < 12) {
+                // Morning
+                gradientStyle = 'background: linear-gradient(45deg, rgba(255, 183, 77, 0.6), rgba(255, 140, 0, 0.6))';
+            } else if (hour >= 12 && hour < 18) {
+                // Afternoon
+                gradientStyle = 'background: linear-gradient(45deg, rgba(52, 152, 219, 0.6), rgba(155, 89, 182, 0.6))';
+            } else if (hour >= 18 && hour < 21) {
+                // Evening
+                gradientStyle = 'background: linear-gradient(45deg, rgba(231, 76, 60, 0.6), rgba(142, 68, 173, 0.6))';
+            } else {
+                // Night
+                gradientStyle = 'background: linear-gradient(45deg, rgba(44, 62, 80, 0.8), rgba(52, 73, 94, 0.8))';
+            }
+            
+            if (gradient) {
+                gradient.style.cssText = gradientStyle;
+            }
+        }
+
+        // Weather Widget
+        function initWeatherWidget() {
+            // Simulate weather data (in production, use real API)
+            const weatherData = {
+                temperature: 24,
+                condition: 'sunny',
+                description: 'Sunny',
+                icon: 'fas fa-sun'
+            };
+
+            document.getElementById('temperature').textContent = weatherData.temperature + '°C';
+            document.getElementById('weather-desc').textContent = weatherData.description;
+            document.getElementById('weather-icon').className = weatherData.icon + ' text-yellow-300 text-xl';
+        }
+
+        // Smart Navigation
+        function initSmartNavigation() {
+            const navbar = document.getElementById('navbar');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                
+                // Change navbar appearance on scroll
+                if (currentScrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                // Update breadcrumb based on current section
+                updateBreadcrumb();
+                
+                lastScrollY = currentScrollY;
+            });
+        }
+
+        function updateBreadcrumb() {
+            const sections = ['home', 'features', 'news', 'contact'];
+            const breadcrumbElement = document.getElementById('current-section');
+            
+            let currentSection = 'Welcome';
+            
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 100 && rect.bottom >= 100) {
+                        currentSection = section.charAt(0).toUpperCase() + section.slice(1);
+                    }
+                }
+            });
+            
+            if (breadcrumbElement) {
+                breadcrumbElement.textContent = currentSection;
+            }
+        }
+
+        // Keyboard Shortcuts
+        function initKeyboardShortcuts() {
+            document.addEventListener('keydown', (e) => {
+                // ESC to close modals/overlays
+                if (e.key === 'Escape') {
+                    closeAllModals();
+                }
+                
+                // Alt + H for home
+                if (e.altKey && e.key === 'h') {
+                    e.preventDefault();
+                    document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+
+        // Enhanced Modal Functions
+        function closeAllModals() {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.classList.add('hidden');
+            });
+        }
+
+        // Virtual Tour Function
+        function startVirtualTour() {
+            showAlert('statusIndicator', '🎥 Virtual tour coming soon! Experience our campus in 360°', true);
+        }
+
+        // Chat Bot Function
+        function toggleChatBot() {
+            showAlert('statusIndicator', '💬 AI Assistant activated! How can I help you today?', true);
+        }
+
+        // Enhanced Alert Function
+        function showAlert(containerId, message, isSuccess) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            container.className = `fixed top-20 right-5 z-50 flex items-center px-6 py-3 rounded-xl text-white transition-all duration-500 transform ${
+                isSuccess ? 'bg-gradient-to-r from-green-500 to-green-600' : 'bg-gradient-to-r from-red-500 to-red-600'
+            } shadow-2xl`;
+            
+            container.innerHTML = `
+                <i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'} mr-3 text-lg"></i>
+                <span>${message}</span>
+                <button onclick="this.parentElement.style.transform = 'translateX(100%)'" class="ml-4 text-white/80 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                container.style.transform = 'translateX(100%)';
+            }, 5000);
+        }
     </script>
 </body>
 </html>

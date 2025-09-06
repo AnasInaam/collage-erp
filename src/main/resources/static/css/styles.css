@@ -1,0 +1,348 @@
+/* Enhanced Professional Color Theme */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #7c3aed;
+    --accent-color: #10b981;
+    --gradient-start: #667eea;
+    --gradient-middle: #764ba2;
+    --gradient-end: #f093fb;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-primary: #ffffff;
+    --text-secondary: #e5e7eb;
+    --text-accent: #a855f7;
+    --nav-bg: rgba(31, 41, 55, 0.9);
+    --nav-scrolled-bg: rgba(31, 41, 55, 0.95);
+}
+
+/* Professional Performance Optimizations */
+* {
+    box-sizing: border-box;
+}
+
+/* Dynamic Gradient Background */
+.dynamic-bg {
+    background: linear-gradient(-45deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end), #f5576c);
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Enhanced Professional Glass Effects */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-hero {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px 0 rgba(31, 38, 135, 0.3);
+}
+
+/* Professional Navigation Enhancements */
+.nav-enhanced {
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    min-height: 80px;
+}
+
+.nav-enhanced.scrolled {
+    background: var(--nav-scrolled-bg);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-enhanced.scrolled .nav-link {
+    color: var(--text-secondary) !important;
+}
+
+.nav-enhanced.scrolled .gradient-text {
+    background: linear-gradient(45deg, #60a5fa, #34d399);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Professional Mega Menu */
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(31, 41, 55, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 999;
+}
+
+.mega-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Professional Content Spacing */
+.main-content {
+    margin-top: 80px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section {
+    min-height: calc(100vh - 80px);
+    position: relative;
+    z-index: 2;
+}
+
+/* Gradient Text Effects */
+.gradient-text {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating Animations */
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+@keyframes float-medium {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(-5deg); }
+}
+
+@keyframes float-fast {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+.animate-float-medium { animation: float-medium 4s ease-in-out infinite; }
+.animate-float-fast { animation: float-fast 3s ease-in-out infinite; }
+
+/* Floating Academic Icons */
+.floating-icon {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Particle System */
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float-particle 12s linear infinite;
+    z-index: 1;
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Weather Widget */
+.weather-widget {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 30;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1rem;
+    width: 200px;
+    color: var(--text-primary);
+}
+
+/* Professional Interactive Elements */
+.hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Status Indicator */
+.status-indicator {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+/* Counter Animation */
+.counter {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+/* Nav Link Styling */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Responsive Enhancements - Professional Mobile Support */
+@media (max-width: 768px) {
+    .floating-icon {
+        font-size: 1.5rem !important;
+        display: none; /* Hide floating icons on mobile for better performance */
+    }
+    
+    .counter {
+        font-size: 1.8rem;
+    }
+    
+    .weather-widget {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 1rem;
+        width: calc(100% - 2rem);
+    }
+
+    .nav-container {
+        padding: 0 1rem;
+    }
+
+    .hero-section {
+        min-height: calc(100vh - 60px);
+        margin-top: 60px;
+    }
+
+    .nav-enhanced {
+        min-height: 60px;
+    }
+
+    .nav-enhanced .h-20 {
+        height: 60px;
+    }
+
+    .main-content {
+        margin-top: 60px;
+    }
+
+    .mega-menu {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        width: 100% !important;
+        margin-top: 0 !important;
+        box-shadow: none !important;
+        background: rgba(31, 41, 55, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+    }
+
+    .particle {
+        animation-duration: 8s !important; /* Slower particles on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .glass-hero {
+        padding: 1.5rem !important;
+        margin: 1rem !important;
+    }
+
+    .text-4xl {
+        font-size: 2rem !important;
+    }
+
+    .text-7xl {
+        font-size: 3rem !important;
+    }
+}
+
+/* High DPI / Retina Display Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .glass-card, .glass-hero, .mega-menu {
+        backdrop-filter: blur(15px);
+    }
+}
+
+/* Reduced Motion Support for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .animate-float-slow, .animate-float-medium, .animate-float-fast {
+        animation: none;
+    }
+    
+    .particle {
+        animation: none;
+        opacity: 0.3;
+    }
+    
+    .dynamic-bg {
+        animation: none;
+        background: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle));
+    }
+    
+    .hover-lift {
+        transition: none;
+    }
+    
+    .hover-lift:hover {
+        transform: none;
+    }
+}
