@@ -18,5 +18,8 @@ RUN mvn clean package -DskipTests
 # Expose port
 EXPOSE 8080
 
+# Set environment variable for port
+ENV PORT=8080
+
 # Run the application (using a more generic approach to find the JAR)
-CMD ["sh", "-c", "java -jar target/*.jar"]
+CMD ["sh", "-c", "java -Djava.net.preferIPv4Stack=true -Dserver.address=0.0.0.0 -jar target/*.jar"]
