@@ -14,7 +14,12 @@ import java.util.Optional;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
     
-    Optional<Department> findByCode(String code);
+        /**
+     * Find department by code.
+     * @param code the department code
+     * @return Optional department
+     */
+    Optional<Department> findByCodeAndIsActiveTrue(String code);
     
     Optional<Department> findByName(String name);
     

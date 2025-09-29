@@ -29,7 +29,7 @@ public class DepartmentService {
     }
     
     public Optional<Department> getDepartmentByCode(String code) {
-        return departmentRepository.findByCode(code);
+        return departmentRepository.findByCodeAndIsActiveTrue(code);
     }
     
     public Department createDepartment(Department department) {

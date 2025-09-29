@@ -9,8 +9,10 @@ D:\PROJECTS\Java project\src\main\java\com\example\springbootdemo\config\DataLoa
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\FeeStructure.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\security\AuthTokenFilter.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\controller\HomeController.java
+D:\PROJECTS\Java project\src\main\java\com\example\springbootdemo\package-info.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\Faculty.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\repository\UserRepository.java
+D:\PROJECTS\Java project\src\main\java\com\example\springbootdemo\config\package-info.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\security\JwtUtils.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\enums\Role.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\Course.java
@@ -20,8 +22,6 @@ D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\dto\request\Signup
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\enums\Gender.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\enums\PaymentStatus.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\controller\AuthController.java
-D:\PROJECTS\Java project\src\main\java\com\example\springbootdemo\model\User.java
-D:\PROJECTS\Java project\src\main\java\com\example\springbootdemo\controller\HomeController.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\enums\AttendanceStatus.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\dto\response\JwtResponse.java
 D:\PROJECTS\Java project\src\main\java\com\example\collegeerp\model\BaseEntity.java

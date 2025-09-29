@@ -2,6 +2,7 @@ com\example\collegeerp\model\Student.class
 com\example\collegeerp\controller\DepartmentController.class
 com\example\collegeerp\dto\response\JwtResponse.class
 com\example\collegeerp\service\UserService.class
+com\example\springbootdemo\package-info.class
 com\example\collegeerp\service\CustomUserDetailsService.class
 com\example\collegeerp\security\JwtUtils.class
 com\example\collegeerp\controller\GlobalExceptionHandler.class
@@ -31,6 +32,7 @@ com\example\collegeerp\config\SecurityConfig.class
 com\example\collegeerp\security\AuthTokenFilter.class
 com\example\collegeerp\repository\UserRepository.class
 com\example\collegeerp\security\UserPrincipal.class
+com\example\springbootdemo\config\package-info.class
 com\example\collegeerp\controller\AuthController.class
 com\example\collegeerp\controller\UserController.class
 com\example\collegeerp\model\Department.class
