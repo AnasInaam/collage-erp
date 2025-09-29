@@ -2,7 +2,7 @@
 
 param(
     [Parameter(Mandatory=$true)]
-    [ValidateSet("dev", "dev-h2", "prod", "test", "build", "run")]
+    [ValidateSet("dev", "local", "dev-h2", "prod", "test", "build", "run")]
     [string]$Profile
 )
 
@@ -23,6 +23,10 @@ switch ($Profile) {
     "dev" {
         Write-Host "Running in Development mode with Supabase PostgreSQL..." -ForegroundColor Yellow
         & $mvnCmd spring-boot:run "-Dspring-boot.run.profiles=dev"
+    }
+    "local" {
+        Write-Host "Running in Local mode with H2 database..." -ForegroundColor Cyan
+        & $mvnCmd spring-boot:run "-Dspring-boot.run.profiles=local"
     }
     "dev-h2" {
         Write-Host "Running in Development mode with H2 database (fallback)..." -ForegroundColor Cyan

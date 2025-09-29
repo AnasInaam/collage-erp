@@ -1,6 +1,5 @@
 package com.example.collegeerp.model;
 
-import com.example.collegeerp.model.enums.PaymentStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

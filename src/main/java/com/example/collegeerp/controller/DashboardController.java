@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.collegeerp.repository.UserRepository;
 import com.example.collegeerp.repository.DepartmentRepository;
 import com.example.collegeerp.security.UserPrincipal;
 
@@ -23,9 +22,6 @@ import java.util.List;
 @RequestMapping("/api/dashboard")
 @Tag(name = "Dashboard", description = "Dashboard statistics and data APIs")
 public class DashboardController {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
