@@ -101,11 +101,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- Swagger/OpenAPI -->
+        <!-- Swagger/OpenAPI (Development only to avoid production conflicts) -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.2.0</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Apache Commons for utilities -->

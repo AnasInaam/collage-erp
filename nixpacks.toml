@@ -5,4 +5,4 @@ nixPkgs = ['openjdk21', 'maven']
 cmds = ['mvn clean package -DskipTests -Dmaven.test.skip=true']
 
 [phases.start]
-cmd = 'java -Dserver.port=$PORT -Djava.awt.headless=true -jar target/college-erp-1.0.0.jar'
+cmd = 'java -Dserver.port=$PORT -Dspring.profiles.active=prod -Djava.awt.headless=true -jar target/college-erp-1.0.0.jar'
