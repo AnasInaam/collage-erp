@@ -764,7 +764,7 @@
                                 <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                                 Contact
                             </a></li>
-                            <li><a href="http://localhost:8080/swagger-ui.html" target="_blank" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
+                            <li><a href="/swagger-ui.html" target="_blank" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 flex items-center group">
                                 <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                                 API Documentation
                             </a></li>
@@ -999,12 +999,14 @@
         }
 
         // --- API Calls ---
-        const API_BASE_URL = 'http://localhost:8080/api/auth';
+        // Dynamically determine the API base URL based on the current environment
+        const API_BASE_URL = `${window.location.protocol}//${window.location.host}/api/auth`;
+        const HEALTH_CHECK_URL = `${window.location.protocol}//${window.location.host}/actuator/health`;
 
         // Check server status
         async function checkServerStatus() {
             try {
-                const response = await fetch('http://localhost:8080/actuator/health');
+                const response = await fetch(HEALTH_CHECK_URL);
                 if (response.ok) {
                     const data = await response.json();
                     if (data.status === 'UP') {
@@ -1359,5 +1361,12 @@
             }, 5000);
         }
     </script>
+    
+    <!-- API Configuration Script -->
+    <script src="js/api-config.js"></script>
+    
+    <!-- Main Application Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/main-enhanced.js"></script>
 </body>
 </html>
